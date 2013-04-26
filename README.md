@@ -8,8 +8,11 @@ Lift's JsCmds.FocusOnLoad utilizes a findOrAddId function that doesn't support a
 Usage is the same as the FocusOnLoad function. After importing FocusAutoComplete, wrap the autocomplete call/nodeseq and bind as usual.
 
 E.g.,
-def render = {
-    val autocomplete = AutoComplete("", querydbase _, setSelected _, "placeholder" -> "search")
+
+    def render = {
+      val autocomplete = AutoComplete("", querydbase _, setSelected _, "placeholder" -> "search")
         
-    "#lastname" #> FocusAutoComplete(autocomplete) &
-    ....
+      "#lastname" #> FocusAutoComplete(autocomplete) &
+    }
+
+Thanks to Richard Dallaway for putting me onto the right path.
