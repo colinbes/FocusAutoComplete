@@ -17,7 +17,10 @@ package com.besterdesigns.liftmodules.widget
 
 import net.liftweb.http.S
 import net.liftweb.http.js.JsCmds.Focus
+import net.liftweb.http.js.JsCmds.Run
 import scala.xml.{Elem, Node}
+import net.liftweb.http.js.JsCmd
+import net.liftweb.http.js.JsCmds
 
 /**
  * Object to force focus on liftmodules' autocomplete widget. 
@@ -39,13 +42,34 @@ import scala.xml.{Elem, Node}
   }}}
  */
 object FocusAutoComplete {
-  def apply(in: Elem) = {
+  def apply(in: Elem) = AutoCompleteWrapper(in, id=>Focus(id))
+}
+
+/**
+ * AutoComplete wrapper that exposes input element id for generation of user javascript.
+ * Usage:
+ *  def render = {
+ *
+ *  def js(id: String): JsCmd = {
+ *    val str = """
+ *    |$('#""" + id + """').focus();
+ *    |$('#""" + id + """').bind('blur',function() {
+ *    |$(this).next().val($(this).val());
+ *    |});
+ * """
+ *    JsCmds.Run(str.stripMargin)
+ *  }
+ *
+ *  "#lastname" #> AutoCompleteWrapper(AutoComplete("", queryLName _, ....), id => js(id))
+ *  ...} 
+ */
+object AutoCompleteWrapper {  
+  def apply(in: Elem, code: String => JsCmd = (String) => JsCmds.Noop) = {
     findId(in) match {
-      case Some(x) => {
-        val js = Focus(x.text)
-        S.appendJs(js)
+      case Some(js) => {        
+        S.appendJs(code(js.text))
       }
-      case _ =>
+      case _ => 
     }
     in
   }
