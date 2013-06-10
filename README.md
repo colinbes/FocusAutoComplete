@@ -7,12 +7,32 @@ Lift's JsCmds.FocusOnLoad utilizes a findOrAddId function that doesn't support a
 
 Usage is the same as the FocusOnLoad function. After importing FocusAutoComplete, wrap the autocomplete call/nodeseq and bind as usual.
 
-E.g.,
+e.g.,
 
     def render = {
       val autocomplete = AutoComplete("", querydbase _, setSelected _, "placeholder" -> "search")
         
       "#lastname" #> FocusAutoComplete(autocomplete) &
     }
+    
+A new AutoCompleteWrapper function exposes input's id via a callback allowing insertion of custom javascript
 
+e.g., 
+
+    def render = {
+ 
+       def js(id: String): JsCmd = {
+         val str = """
+         |$('#""" + id + """').focus();
+         |$('#""" + id + """').bind('blur',function() {
+         |$(this).next().val($(this).val());
+         |});
+      """
+         JsCmds.Run(str.stripMargin)
+       }
+     
+       "#lastname" #> AutoCompleteWrapper(AutoComplete("", queryLName _, ....), id => js(id))
+     
+       ...} 
+       
 Thanks to Richard Dallaway for putting me onto the right path.
