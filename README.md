@@ -5,6 +5,12 @@ Helper function for liftmodule's autocomplete widget to force focus on autocompl
 
 Lift's JsCmds.FocusOnLoad utilizes a findOrAddId function that doesn't support autocomplete's element structure. The autocomlete widget wraps element sequence in an <span> tag which ends up being recipient of new id and focus as opposed to the actual input tag (type="text").
 
+Two helper functions are provided. FocusAutoComplete and AutoCompleteWrapper
+
+
+FocusAutoComplete
+=================
+
 Usage is the same as the FocusOnLoad function. After importing FocusAutoComplete, wrap the autocomplete call/nodeseq and bind as usual.
 
 e.g.,
@@ -14,6 +20,9 @@ e.g.,
         
       "#lastname" #> FocusAutoComplete(autocomplete) &
     }
+    
+AutoCompleteWrapper
+===================
     
 A new AutoCompleteWrapper function exposes input's id via a callback allowing insertion of custom javascript
 
