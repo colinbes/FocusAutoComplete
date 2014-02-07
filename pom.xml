@@ -5,7 +5,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.besterdesigns.liftmodules</groupId>
 	<artifactId>widget-kit</artifactId>
-	<version>1.1.0</version>
+	<version>1.1.1</version>
 	<name>FocusAutoComplete</name>
 	<description>Liftmodules autocomplete focus widget helper</description>
 	<repositories>
@@ -42,12 +42,12 @@
 	<dependency>
 			<groupId>net.liftweb</groupId>
 			<artifactId>lift-webkit_2.10</artifactId>
-			<version>2.5-RC4</version>
+			<version>2.5.1</version>
 		</dependency>
 		<dependency>
 			<groupId>org.specs2</groupId>
 			<artifactId>specs2_2.10</artifactId>
-			<version>1.14</version>
+			<version>2.0</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
